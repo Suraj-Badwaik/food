@@ -1,0 +1,72 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Login</title>
+  <link rel="stylesheet" href="./styles/navbar.css">
+  <link rel="stylesheet" href="./styles/login.css">
+</head>
+<body>
+    <div id="navbar"></div>
+    <div id="login">
+        <h2>Log In</h2>
+        <input type="text"  id="username" placeholder="username">
+        <input type="password"  id="password" placeholder="password">
+        <button id="btn">Login</button>
+    </div>
+</body>
+</html>
+
+
+<script type="module">
+     import navbar from "./component/navbar.js"
+
+document.getElementById('navbar').innerHTML = navbar();
+
+ let login = async () =>{
+     let user_data ={
+         username: document.getElementById('username').value,
+         password: document.getElementById('password').value,
+     }
+
+     user_data = JSON.stringify(user_data);
+
+     let res = await fetch(
+         'https://masai-api-mocker.herokuapp.com/auth/login',{
+         method: 'POST',
+         body: user_data,
+
+         headers:{
+            'Content-type' : 'application/json',
+         },
+     });
+
+     let data = await res.json();
+
+     let username = document.getElementById('username').value;
+     getUserCred(username,data.token);
+     console.log('data:', data)
+      
+    };
+
+    document.getElementById('btn').addEventListener('click',login);
+
+
+    let getUserCred = async (username,token) =>{
+        console.log('here')
+            let res = await fetch(`https://masai-api-mocker.herokuapp.com/user/${username}`,{
+
+                headers:{
+                    Authorization: `Bearer ${token}`,
+                },
+            })
+
+            let data = await res.json();
+            console.log('User data:', data)
+            
+    };
+</script>
+<!-- 
+https://github.com/masai-school/api-mocker/wiki/Authentication-API -->

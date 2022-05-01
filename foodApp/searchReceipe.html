@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Looking for a receipe</title>
+    <link rel="stylesheet" href="./styles/searchrecipe.css">
+    <link rel="stylesheet" href="./styles/navbar.css">
+</head>
+
+<body>
+    <div id="navbar"></div>
+    <h3>Looking for a receipe, You are at the right place.</h3>
+    <div id="searchBox">
+        <input type="text" id="Search" value="" oninput="debounce(main,100)" placeholder="Search receipe">
+        <button id="searchbtn">Search</button>
+    </div>
+
+    <div id="showReceipe"></div>
+</body>
+
+</html>
+
+<script type="module">
+    import navbar from "./component/navbar.js";
+
+    document.getElementById('navbar').innerHTML = navbar()
+</script>
+
+
+<script src="./script/searchReceipe.js"></script>
